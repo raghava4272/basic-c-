@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+    char str[1000];
+    int i, vowels = 0, consonants = 0, words = 0, spaces = 0, specials = 0;
+    
+    printf("Enter a string: ");
+    fgets(str, 1000, stdin);
+    
+    for (i = 0; str[i] != '\0'; i++) {
+        if (str[i]!=' ') {
+            if (tolower(str[i]) == 'a' || tolower(str[i]) == 'e' || tolower(str[i]) == 'i' || tolower(str[i]) == 'o' || tolower(str[i]) == 'u') {
+                vowels++;
+            } else {
+                consonants++;
+            }
+        } else if (str[i]==' ') {
+            spaces++;
+        } else {
+            specials++;
+        }
+    }
+    
+    words = spaces + 1;
+    
+    printf("\nNumber of words: %d", words);
+    printf("\nNumber of vowels: %d", vowels);
+    printf("\nNumber of consonants: %d", consonants);
+    printf("\nNumber of spaces: %d", spaces);
+    printf("\nNumber of special characters: %d", specials);
+    
+    return 0;
+}
