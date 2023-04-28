@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void wordFrequency(char *str);
+char* firstRepeated(char *str);
+char* firstNonRepeated(char *str);
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    fgets(str, 100, stdin);
+
+    // Remove the newline character from the input string
+    str[strcspn(str, "\n")] = '\0';
+
+    printf("Length of the string: %ld\n", strlen(str));
+
+    printf("Word frequency:\n");
+    wordFrequency(str);
+
+    char *repeated = firstRepeated(str);
+    if (repeated == NULL) {
+        printf("There are no repeated characters in the string.\n");
+    } else {
+        printf("The first repeated character is: %c\n", *repeated);
+    }
+
+    char *nonRepeated = firstNonRepeated(str);
+    if (nonRepeated == NULL) {
+        printf("There are no non-repeated characters in the string.\n");
+    } else {
+        printf("The first non-repeated character is: %c\n", *nonRepeated);
+    }
+
+    return 0;
+}
+
+void wordFrequency(char *str) {
+    int count = 0, i, j;
+    char words[100][100], word[100];
+
+    for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] == ' ' || str[i] == '\n' || str[i] == '\t') {
+            word[count] = '\0';
+            strcpy(words[count], word);
+            count = 0;
+        } else {
+            word[count] = str[i];
+            count++;
+        }
+    }
+    word[count] = '\0';
+    strcpy(words[count], word);
+
+    for (i = 0; i <= count; i++) {
+        int frequency = 1;
+        if (strcmp(words[i], "-1") != 0) {
+            for (j = i + 1; j <= count; j++) {
+                if (strcmp(words[i], words[j]) == 0) {
+                    frequency++;
+                    strcpy(words[j], "-1");
+                }
+            }
+            printf("%s = %d\n", words[i], frequency);
+        }
+    }
+}
+
+char* firstRepeated(char *str) {
+    int i, j;
+    for (i = 0; str[i] != '\0'; i++) {
+        for (j = i + 1; str[j] != '\0'; j++) {
+            if (str[i] == str[j]) {
+                return &str[i];
+            }
+        }
+    }
+    return NULL;
+}
+
+char* firstNonRepeated(char *str) {
+    int i, j;
+    for (i = 0; str[i] != '\0'; i++) {
+        int repeated = 0;
+        for (j = 0; str[j] != '\0'; j++) {
+            if (i != j && str[i] == str[j]) {
+                repeated = 1;
+                break;
+            }
+        }
+        if (repeated == 0) {
+            return &str[i];
+        }
+    }
+    return NULL;
+}
