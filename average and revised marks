@@ -1,0 +1,32 @@
+#include<stdio.h>
+
+int main() {
+    int original_marks[25], revised_marks[25];
+    int month_of_birth[25];
+    int i, sum_original = 0, sum_revised = 0;
+    float original_average, revised_average;
+    printf("Enter the original marks of 25 students:\n");
+    for (i = 0; i < 25; i++) {
+        scanf("%d", &original_marks[i]);
+    }
+    printf("Enter the month of birth of 25 students:\n");
+    for (i = 0; i < 25; i++) {
+        scanf("%d", &month_of_birth[i]);
+        revised_marks[i] = original_marks[i] + month_of_birth[i];
+    }
+    for (i = 0; i < 25; i++) {
+        sum_original += original_marks[i];
+        sum_revised += revised_marks[i];
+    }
+    original_average = (float)sum_original / 25;
+    revised_average = (float)sum_revised / 25;
+    printf("The class average for the original marks is: %f\n", original_average);
+    printf("The class average for the revised marks is: %f\n", revised_average);
+    if (revised_average - original_average >= 5) {
+        printf("Can implement - Significant increase in class average.\n");
+    }
+    else {
+        printf("Need not implement - No significant increase in class average.\n");
+    }
+    return 0;
+}
