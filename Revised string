@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <string.h>
+
+int processString(char* input) {
+    int len = strlen(input);
+    int i, j;
+    char first[20], second[20];
+    for (i = 0; i < len && input[i] != ' '; i++) {
+        first[i] = (i == 0) ? toupper(input[i]) : tolower(input[i]);
+    }
+    first[i] = '\0';
+    for (j = i+1, i = 0; j < len; i++, j++) {
+        second[i] = toupper(input[j]);
+    }
+    second[i] = '\0';
+    printf("%s %s\n", first, second);
+    printf("%d\n", len);
+    return (len < 20) ? len : sizeof(input);
+}
+
+int main() {
+    char input[50];
+    printf("Enter a sentence with two words: ");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = 0;
+    int result = processString(input);
+    printf("Result: %d\n", result);
+    return 0;
+}
